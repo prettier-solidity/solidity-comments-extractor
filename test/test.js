@@ -102,4 +102,19 @@ contract Foo {
  something
  something else`);
   });
+
+  it("don't remove leading asterisks from line comments", () => {
+    const code = `
+contract Foo {
+// * something
+}
+`;
+    const comments = extractComments(code);
+    expect(comments).toHaveLength(1);
+
+    const [c] = comments;
+    expect(c.type).toEqual("LineComment");
+    expect(c.raw).toEqual(" * something");
+    expect(c.value).toEqual(" * something");
+  });
 });

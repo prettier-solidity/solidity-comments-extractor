@@ -99,11 +99,14 @@ function extractComments(str) {
     const raw = str.slice(start, end);
 
     // removing the leading asterisks from the value is necessary for jsdoc-style comments
-    const value = raw
-      .split("\n")
-      .map((x) => x.replace(/^\s*\*/, ""))
-      .join("\n")
-      .trimRight();
+    let value = raw;
+    if (comment.type === "BlockComment") {
+      value = value
+        .split("\n")
+        .map((x) => x.replace(/^\s*\*/, ""))
+        .join("\n")
+        .trimRight();
+    }
 
     return {
       ...comment,
