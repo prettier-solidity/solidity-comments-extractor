@@ -12,7 +12,7 @@ contract Foo {
 
     const lineComment = comments[0];
     expect(lineComment.type).toEqual("LineComment");
-    expect(lineComment.raw).toEqual(" this is a contract\n");
+    expect(lineComment.raw).toEqual(" this is a contract");
     expect(lineComment.value).toEqual(" this is a contract");
   });
 
@@ -49,5 +49,19 @@ contract Foo {
 `;
     const comments = extractComments(code);
     expect(comments).toHaveLength(0);
+  });
+
+  it("should work for two successive block comments", () => {
+    const code = `
+contract Foo {
+  /*1*//*2*/
+}
+`;
+    const comments = extractComments(code);
+    expect(comments).toHaveLength(2);
+
+    const [c1, c2] = comments;
+    expect(c1.type).toEqual("BlockComment");
+    expect(c2.type).toEqual("BlockComment");
   });
 });

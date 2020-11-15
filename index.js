@@ -23,7 +23,7 @@ function extractComments(str) {
 
     if (state === LINE_COMMENT_STATE && str[i] === "\n") {
       state = ETC_STATE;
-      currentComment.range.push(i + 1);
+      currentComment.range.push(i);
       comments.push(currentComment);
       currentComment = null;
       i++;
@@ -45,7 +45,7 @@ function extractComments(str) {
       currentComment.range.push(i + 2);
       comments.push(currentComment);
       currentComment = null;
-      i++;
+      i += 2;
       continue;
     }
 
