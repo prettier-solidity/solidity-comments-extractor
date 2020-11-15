@@ -64,4 +64,42 @@ contract Foo {
     expect(c1.type).toEqual("BlockComment");
     expect(c2.type).toEqual("BlockComment");
   });
+
+  it("should not include extra asterisks in block comment value", () => {
+    const code = `
+contract Foo {
+/** block comment */
+}
+`;
+    const comments = extractComments(code);
+    expect(comments).toHaveLength(1);
+
+    const [c] = comments;
+    expect(c.type).toEqual("BlockComment");
+    expect(c.raw).toEqual("* block comment ");
+    expect(c.value).toEqual(" block comment");
+  });
+
+  it("should not include extra asterisks at the start of each line", () => {
+    const code = `
+contract Foo {
+/**
+ * something
+ * something else
+ */
+}
+`;
+    const comments = extractComments(code);
+    expect(comments).toHaveLength(1);
+
+    const [c] = comments;
+    expect(c.type).toEqual("BlockComment");
+    expect(c.raw).toEqual(`*
+ * something
+ * something else
+ `);
+    expect(c.value).toEqual(`
+ something
+ something else`);
+  });
 });
