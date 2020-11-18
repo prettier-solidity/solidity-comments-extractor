@@ -1,7 +1,7 @@
-const extractComments = require("..");
+const extractComments = require('..');
 
-describe("extract comments", () => {
-  it("should work for a line comment", () => {
+describe('extract comments', () => {
+  it('should work for a line comment', () => {
     const code = `
 // this is a contract
 contract Foo {
@@ -11,12 +11,12 @@ contract Foo {
     expect(comments).toHaveLength(1);
 
     const lineComment = comments[0];
-    expect(lineComment.type).toEqual("LineComment");
-    expect(lineComment.raw).toEqual(" this is a contract");
-    expect(lineComment.value).toEqual(" this is a contract");
+    expect(lineComment.type).toEqual('LineComment');
+    expect(lineComment.raw).toEqual(' this is a contract');
+    expect(lineComment.value).toEqual(' this is a contract');
   });
 
-  it("should work for a block comment", () => {
+  it('should work for a block comment', () => {
     const code = `
 contract Foo {
   /* a block comment */
@@ -26,12 +26,12 @@ contract Foo {
     expect(comments).toHaveLength(1);
 
     const blockComment = comments[0];
-    expect(blockComment.type).toEqual("BlockComment");
-    expect(blockComment.raw).toEqual(" a block comment ");
-    expect(blockComment.value).toEqual(" a block comment");
+    expect(blockComment.type).toEqual('BlockComment');
+    expect(blockComment.raw).toEqual(' a block comment ');
+    expect(blockComment.value).toEqual(' a block comment');
   });
 
-  it("should ignore comments inside double quoted strings", () => {
+  it('should ignore comments inside double quoted strings', () => {
     const code = `
 contract Foo {
   string s = "/* a block comment */";
@@ -41,7 +41,7 @@ contract Foo {
     expect(comments).toHaveLength(0);
   });
 
-  it("should ignore comments inside single quoted strings", () => {
+  it('should ignore comments inside single quoted strings', () => {
     const code = `
 contract Foo {
   string s = '/* a block comment */';
@@ -51,7 +51,7 @@ contract Foo {
     expect(comments).toHaveLength(0);
   });
 
-  it("should work for two successive block comments", () => {
+  it('should work for two successive block comments', () => {
     const code = `
 contract Foo {
   /*1*//*2*/
@@ -61,7 +61,7 @@ contract Foo {
     expect(comments).toHaveLength(2);
 
     const [c1, c2] = comments;
-    expect(c1.type).toEqual("BlockComment");
-    expect(c2.type).toEqual("BlockComment");
+    expect(c1.type).toEqual('BlockComment');
+    expect(c2.type).toEqual('BlockComment');
   });
 });
