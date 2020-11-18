@@ -4,10 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "format": "prettier --write '**/*.js'"
+    "prettier": "prettier '**/*.js'",
+    "prettier:fix": "npm run prettier -- --write",
+    "test": "jest"
   },
   "devDependencies": {
+    "expect": "^26.6.2",
     "jest": "^26.6.3",
     "prettier": "^2.1.2"
   }
