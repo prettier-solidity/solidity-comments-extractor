@@ -1,13 +1,13 @@
-let DOUBLE_QUOTE_STRING_STATE = 'double-quote-string-state';
-let SINGLE_QUOTE_STRING_STATE = 'single-quote-string-state';
-let LINE_COMMENT_STATE = 'line-comment-state';
-let BLOCK_COMMENT_STATE = 'block-comment-state';
-let ETC_STATE = 'etc-state';
+const DOUBLE_QUOTE_STRING_STATE = 'double-quote-string-state';
+const SINGLE_QUOTE_STRING_STATE = 'single-quote-string-state';
+const LINE_COMMENT_STATE = 'line-comment-state';
+const BLOCK_COMMENT_STATE = 'block-comment-state';
+const ETC_STATE = 'etc-state';
 
 function extractComments(str) {
   let state = ETC_STATE;
   let i = 0;
-  let comments = [];
+  const comments = [];
   let currentComment = null;
 
   while (i + 1 < str.length) {
@@ -26,7 +26,7 @@ function extractComments(str) {
       currentComment.range.push(i);
       comments.push(currentComment);
       currentComment = null;
-      i++;
+      i += 1;
       continue;
     }
 
@@ -51,7 +51,7 @@ function extractComments(str) {
 
     if (state === ETC_STATE && str[i] === '"') {
       state = DOUBLE_QUOTE_STRING_STATE;
-      i++;
+      i += 1;
       continue;
     }
     if (
@@ -60,13 +60,13 @@ function extractComments(str) {
       str[i - 1] !== '\\'
     ) {
       state = ETC_STATE;
-      i++;
+      i += 1;
       continue;
     }
 
     if (state === ETC_STATE && str[i] === "'") {
       state = SINGLE_QUOTE_STRING_STATE;
-      i++;
+      i += 1;
       continue;
     }
     if (
@@ -75,11 +75,11 @@ function extractComments(str) {
       str[i - 1] !== '\\'
     ) {
       state = ETC_STATE;
-      i++;
+      i += 1;
       continue;
     }
 
-    i++;
+    i += 1;
   }
 
   if (currentComment !== null && currentComment.type === 'LineComment') {
