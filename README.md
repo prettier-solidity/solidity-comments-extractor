@@ -1,6 +1,6 @@
 # solidity-comments-extractor
 
-Extract comments from solidity code
+Extract comments from Solidity code
 
 ## How to
 
