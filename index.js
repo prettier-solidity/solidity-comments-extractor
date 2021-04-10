@@ -96,10 +96,21 @@ function extractComments(str) {
     const end =
       comment.type === 'LineComment' ? comment.range[1] : comment.range[1] - 2;
     const raw = str.slice(start, end);
+
+    // removing the leading asterisks from the value is necessary for jsdoc-style comments
+    let value = raw;
+    if (comment.type === 'BlockComment') {
+      value = value
+        .split('\n')
+        .map((x) => x.replace(/^\s*\*/, ''))
+        .join('\n')
+        .trimRight();
+    }
+
     return {
       ...comment,
       raw,
-      value: raw.trimRight()
+      value
     };
   });
 }
