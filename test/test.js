@@ -117,4 +117,25 @@ contract Foo {
     expect(c.raw).toEqual(' * something');
     expect(c.value).toEqual(' * something');
   });
+
+  it('should handle escaped backslashes', () => {
+    const code = `
+contract Foo {
+    string a = "\\\\";
+    string b = '\\\\';
+
+    function foo() public {
+        // a comment
+    }
+}
+`;
+
+    const comments = extractComments(code);
+    expect(comments).toHaveLength(1);
+
+    const [c] = comments;
+    expect(c.type).toEqual('LineComment');
+    expect(c.raw).toEqual(' a comment');
+    expect(c.value).toEqual(' a comment');
+  });
 });

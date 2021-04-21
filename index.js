@@ -57,7 +57,7 @@ function extractComments(str) {
     if (
       state === DOUBLE_QUOTE_STRING_STATE &&
       str[i] === '"' &&
-      str[i - 1] !== '\\'
+      (str[i - 1] !== '\\' || str[i - 2] === '\\') // ignore previous backslash unless it's escaped
     ) {
       state = ETC_STATE;
       i += 1;
@@ -72,7 +72,7 @@ function extractComments(str) {
     if (
       state === SINGLE_QUOTE_STRING_STATE &&
       str[i] === "'" &&
-      str[i - 1] !== '\\'
+      (str[i - 1] !== '\\' || str[i - 2] === '\\') // ignore previous backslash unless it's escaped
     ) {
       state = ETC_STATE;
       i += 1;
