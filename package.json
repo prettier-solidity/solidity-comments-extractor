@@ -3,6 +3,8 @@
   "version": "0.0.7",
   "main": "index.js",
   "license": "MIT",
+  "repository": "github:prettier-solidity/solidity-comments-extractor",
+  "homepage": "https://github.com/prettier-solidity/solidity-comments-extractor",
   "scripts": {
     "lint": "eslint '**/*.js'",
     "prettier": "prettier '**/*.js'",
