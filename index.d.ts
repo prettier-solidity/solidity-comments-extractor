@@ -1,10 +1,8 @@
-type Comment = {
+export interface Comment {
   type: 'BlockComment' | 'LineComment';
   raw: string;
   value: string;
   range: [number, number];
-};
+}
 
-declare function extractComments(str: string): Comment[];
-
-export = extractComments;
+export default function extractComments(str: string): Comment[];
