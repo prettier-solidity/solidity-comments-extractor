@@ -5,6 +5,10 @@
   "license": "MIT",
   "repository": "github:prettier-solidity/solidity-comments-extractor",
   "homepage": "https://github.com/prettier-solidity/solidity-comments-extractor",
+  "exports": {
+    "types": "./index.d.ts",
+    "default": "./index.js"
+  },
   "scripts": {
     "lint": "eslint '**/*.js'",
     "prettier": "prettier '**/*.js'",
